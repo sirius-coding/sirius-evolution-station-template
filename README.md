@@ -1,0 +1,137 @@
+# Sirius Evolution Station Template
+
+> 一个把工作方式、项目经验、发布证据、审查标准和自动化检查持续沉淀为可复用资产的进化式开发工作站。
+>
+> An evolving development station that turns workflow, project experience, release evidence, review standards, and automation checks into reusable assets.
+
+<p align="center">
+  <img src="assets/hero.svg" alt="Sirius Coding Evolution Station banner" />
+</p>
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Workspace-Evolution-111827?style=for-the-badge" alt="Workspace Evolution" />
+  <img src="https://img.shields.io/badge/Version-3.0.0-0F766E?style=for-the-badge" alt="Version 3.0.0" />
+  <img src="https://img.shields.io/badge/Codex-Agent%20Rules-2563EB?style=for-the-badge" alt="Codex Agent Rules" />
+</p>
+
+<p align="center">
+  <a href="#核心定位">核心定位</a> ·
+  <a href="#进化闭环">进化闭环</a> ·
+  <a href="#进化流程图">进化流程图</a> ·
+  <a href="#核心资产">核心资产</a> ·
+  <a href="#版本与模板库">版本与模板库</a> ·
+  <a href="#使用方式">使用方式</a> ·
+  <a href="#安全边界">安全边界</a> ·
+  <a href="#许可证">许可证</a>
+</p>
+
+## 核心定位
+
+这个模板库用于创建新的进化式开发工作站。它只包含可复用的根工作站规则、文档、skills、脚本、审计和图形能力，不包含当前主仓库的业务项目实现。
+
+This template repository creates a reusable evolution station. It contains root workstation rules, docs, skills, scripts, audits, and diagram capabilities, but excludes the current main workspace's business project implementations.
+
+| 层级 / Layer | 职责 / Responsibility |
+| --- | --- |
+| 根仓库 / Root workspace | 规则、强记忆、共享 skill、审查标准、发布模型、公开/私有边界 |
+| 项目层 / Project layer | 业务实现、测试、构建、部署、项目级文档和发布质量 |
+| 进化层 / Evolution layer | 每次任务结束后沉淀经验、抽取流程、补齐护栏、推进自动化 |
+
+## 进化闭环
+
+本工作站围绕五个动作持续演进：
+
+1. **主动记忆**：把长期规则写入仓库，而不是留在一次会话中。
+2. **主动复用**：把重复流程升级为 `skills/`、模板或脚本。
+3. **主动护栏**：在发布、同步、改结构、公开文档前做边界检查。
+4. **主动验证**：用测试、构建、静态扫描和烟测证据支撑结论。
+5. **主动复盘**：每次任务输出 `Evolution`，判断哪些经验应继续沉淀。
+
+## 进化流程图
+
+这张图描述的是工作站的进化能力：一次开发对话不会只停留在聊天窗口，而会经过实现、验证、复盘和知识分流，最终沉淀成规则、skill、脚本、文档、图表和项目资产。
+
+<p align="center">
+  <img src="docs/diagrams/evolution-workflow.svg" alt="Sirius Coding Evolution Workflow" />
+</p>
+
+这张图由 [intent](./docs/diagrams/evolution-workflow.intent.json)、[layout plan](./docs/diagrams/evolution-workflow.layout.plan.json)、[SVG](./docs/diagrams/evolution-workflow.svg) 和 [image prompt](./docs/diagrams/evolution-workflow.image-prompt.md) 共同维护。
+
+## 核心资产
+
+| 资产 / Asset | 说明 / Description |
+| --- | --- |
+| [AGENTS.md](./AGENTS.md) | 根仓库代理规则，定义事实源优先级、根/项目边界、护栏和输出结构 |
+| [VERSION](./VERSION) | 当前工作站控制层版本号 |
+| [CHANGELOG](./CHANGELOG.md) | 按 SemVer 维护的版本历史 |
+| [Release History](./docs/releases/release-history.md) | 版本治理、模板同步和发布边界 |
+| [Template Manifest](./docs/template/template-manifest.yaml) | 模板库同步范围，明确哪些根资产可进入模板 |
+| [Evolution Handbook](./specs/workspace/evolution-handbook.md) | 进化手册全文持久化版本，是本工作站的核心目标说明 |
+| [Workspace Opening Model](./docs/ops/workspace-opening-model.md) | 项目加入、发布形态和目录契约 |
+| [Core Assets Map](./specs/workspace/core-assets-map.md) | 核心文件和目录的中文/英文双语索引 |
+| [Public / Private Boundary](./specs/workspace/public-private-boundary.md) | 公开仓库脱敏规则和私有覆盖文件约定 |
+| [Code Review Standard](./specs/review/code_review.md) | 默认代码审查标准 |
+| [Environment Registry](./docs/ops/environment-registry.yaml) | 公开环境模型，真实环境值不进入仓库 |
+| [Private Registry Example](./docs/ops/environment-registry.private.example.yaml) | 私有环境登记示例，复制后填入本地忽略文件 |
+| [Reusable Delivery Skill](./skills/workspace-multi-env-delivery/SKILL.md) | 多环境交付、独立仓库发布和部署排障复用流程 |
+| [Root Repo Audit Script](./scripts/root-repo-structure-audit.sh) | 根仓库结构和公开脱敏检查脚本 |
+| [Template Sync Script](./scripts/template/sync-template-repo.sh) | 从当前工作站生成模板库快照，并排除业务项目实现 |
+| [Diagram Capability](./docs/diagrams/README.md) | intent -> layout -> SVG / image prompt 的高质量流程图生成链路 |
+| [Independent Repo Alignment](./specs/workspace/independent-repo-alignment.md) | 独立仓库与根工作站目标对齐标准 |
+| [Module Roadmap](./specs/workspace/module-roadmap.md) | 根模块和子项目模块的持续完善路线 |
+| [GitHub Project Roadmap](./docs/ops/github-project-roadmap.md) | 根工作站迭代看板模型和初始化脚本说明 |
+
+## 版本与模板库
+
+当前控制层版本是 [`3.0.0`](./VERSION)。根工作站按 SemVer 维护：大版本代表工作站运行模型或模板边界变化，小版本代表新增可复用能力，补丁版本用于文档、脚本或检查修正。
+
+模板库用于复制本工作站的可复用控制层，不包含当前仓库的业务实现。大版本稳定后，从当前仓库同步到 `sirius-coding/sirius-evolution-station-template`：
+
+```bash
+./scripts/template/sync-template-repo.sh \
+  --output /tmp/sirius-evolution-station-template \
+  --push
+```
+
+同步范围由 [Template Manifest](./docs/template/template-manifest.yaml) 定义。`projects/`、根 `pom.xml`、项目级部署清单和私有环境覆盖文件不会进入模板库。
+
+## 使用方式
+
+从这个模板创建新仓库后，先按实际项目补充 `projects/` 或连接独立业务仓库。模板只提供工作站控制层，不预置业务实现。
+
+1. 阅读 `AGENTS.md` 和 `specs/workspace/evolution-handbook.md`。
+2. 复制 `docs/ops/environment-registry.private.example.yaml` 为本地私有覆盖文件。
+3. 运行 `./scripts/root-repo-structure-audit.sh`。
+4. 按需要新增项目执行层，并把可复用经验沉淀回根层。
+
+## 安全边界
+
+这个仓库按公开仓库维护。可公开沉淀结构、流程、模板、匿名化拓扑和检查项；不公开真实服务器账号、凭证、密钥、精确私有主机、敏感路径和登录细节。
+
+真实环境值应放在本地忽略文件：
+
+```bash
+cp docs/ops/environment-registry.private.example.yaml docs/ops/environment-registry.private.yaml
+```
+
+## 本地检查
+
+```bash
+./scripts/root-repo-structure-audit.sh
+```
+
+该脚本检查必备控制层文件、README 本地链接、YAML/TOML 可解析性、私有环境文件未被追踪，以及公开资产中是否出现已知敏感值。
+
+## 许可证
+
+本仓库当前采用 [Apache License 2.0](./LICENSE)。未来商业化边界见 [COMMERCIALIZATION.md](./COMMERCIALIZATION.md)。
+
+Sirius 名称、品牌方向和视觉标识按 [NOTICE](./NOTICE) 中的品牌边界说明使用。
+
+## 当前主线
+
+1. 让进化手册成为仓库强记忆。
+2. 让 README 成为进化式工作站的公开入口。
+3. 让根仓库结构、公开/私有边界和发布资产可审计。
+4. 逐步把重复检查升级为脚本、workflow，再考虑插件化。
+5. 按 SemVer 大版本从主工作站同步可复用模板能力。
