@@ -10,7 +10,7 @@
 
 <p align="left">
   <img src="https://img.shields.io/badge/Control%20Layer-OS-111827?style=for-the-badge" alt="Control Layer OS" />
-  <img src="https://img.shields.io/badge/Version-4.0.0-0F766E?style=for-the-badge" alt="Version 4.0.0" />
+  <img src="https://img.shields.io/badge/Version-4.0.1-0F766E?style=for-the-badge" alt="Version 4.0.1" />
   <img src="https://img.shields.io/badge/Template-Auditable-2563EB?style=for-the-badge" alt="Auditable Template" />
 </p>
 
