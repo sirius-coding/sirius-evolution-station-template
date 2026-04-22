@@ -1,7 +1,8 @@
 version: 1
 template_repository: "sirius-coding/sirius-evolution-station-template"
-source_repository: "sirius-coding/sirius-coding"
-current_version: "4.0.1"
+upstream_repository: "sirius-coding/sirius-evolution-station-template"
+official_adopter_repository: "sirius-coding/sirius-workstation"
+current_version: "5.0.0"
 visibility: "public"
 
 include:
@@ -32,7 +33,7 @@ exclude:
     - "pom.xml"
     - ".github/workflows/sync-template.yml"
     - ".github/java-upgrade"
-    - "docs/mother"
+    - "docs/workstation"
     - "docs/superpowers"
     - "docs/ops/environment-registry.private.yaml"
     - ".worktrees"
@@ -41,7 +42,7 @@ exclude:
     - "node_modules"
 
 release_policy:
-  main_repository: "primary iteration workspace"
-  template_repository: "major reusable station baseline"
-  sync_trigger: "major SemVer release"
+  template_repository: "public reusable upstream"
+  adopter_repository: "source of reusable lessons"
+  sync_trigger: "accepted upstream reusable capability"
   business_project_policy: "exclude projects/ and independent repository implementation updates"

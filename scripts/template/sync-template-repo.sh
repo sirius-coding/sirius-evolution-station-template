@@ -9,7 +9,7 @@ PR_REPO="sirius-coding/sirius-evolution-station-template"
 PUSH=false
 CHECK=false
 CREATE_PR=false
-BRANCH_PREFIX="sync/from-mother"
+BRANCH_PREFIX="sync/from-adopter"
 
 usage() {
   cat <<'EOF'
@@ -101,7 +101,7 @@ done < <(read_manifest_list "exclude.paths")
 
 if [[ "${CHECK}" == true ]]; then
   bash "${ROOT}/scripts/template/template-repo-audit.sh" "${OUTPUT}"
-  bash "${ROOT}/scripts/root-repo-structure-audit.sh" "${OUTPUT}" --strict --profile template-release
+  bash "${ROOT}/scripts/root-repo-structure-audit.sh" "${OUTPUT}" --strict --profile template
   exit 0
 fi
 
@@ -143,7 +143,7 @@ EOF
 node "${ROOT}/scripts/template/sync-template-readme.mjs" "${ROOT}/README.md" "${OUTPUT}/README.md"
 
 template_audit_output="$(bash "${ROOT}/scripts/template/template-repo-audit.sh" "${OUTPUT}")"
-root_audit_output="$(bash "${ROOT}/scripts/root-repo-structure-audit.sh" "${OUTPUT}" --strict --profile template-release)"
+root_audit_output="$(bash "${ROOT}/scripts/root-repo-structure-audit.sh" "${OUTPUT}" --strict --profile template)"
 
 print_summary() {
   echo "Included paths:"
@@ -204,7 +204,7 @@ if [[ "${CREATE_PR}" == true ]]; then
   cp -R "${OUTPUT}/." "${clone_dir}/"
 
   bash "${ROOT}/scripts/template/template-repo-audit.sh" "${clone_dir}" >/dev/null
-  bash "${ROOT}/scripts/root-repo-structure-audit.sh" "${clone_dir}" --strict --profile template-release >/dev/null
+  bash "${ROOT}/scripts/root-repo-structure-audit.sh" "${clone_dir}" --strict --profile template >/dev/null
 
   git -C "${clone_dir}" add -A
   if git -C "${clone_dir}" diff --cached --quiet; then
@@ -213,14 +213,14 @@ if [[ "${CREATE_PR}" == true ]]; then
   fi
 
   changed_files="$(git -C "${clone_dir}" diff --cached --name-status)"
-  git -C "${clone_dir}" commit -m "sync: update from mother repo"
+  git -C "${clone_dir}" commit -m "sync: update from adopter workspace"
   git -C "${clone_dir}" push -u origin "${branch}"
 
   body_file="${workdir}/pr-body.md"
   {
     echo "## Summary"
     echo
-    echo "Auto sync from mother repository at version $(tr -d '\n' < "${ROOT}/VERSION")."
+    echo "Auto sync from an adopter workspace at version $(tr -d '\n' < "${ROOT}/VERSION")."
     echo
     echo "## Changed Files"
     echo
@@ -242,7 +242,7 @@ if [[ "${CREATE_PR}" == true ]]; then
 
   gh pr create \
     --repo "${PR_REPO}" \
-    --title "sync: update from mother repo" \
+    --title "sync: update from adopter workspace" \
     --body-file "${body_file}" \
     --base main \
     --head "${branch}"

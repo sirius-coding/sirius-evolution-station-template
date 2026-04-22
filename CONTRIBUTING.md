@@ -18,11 +18,11 @@ This repository accepts contributions that improve the reusable root control lay
 - Project-specific deployment details that do not belong in a reusable template.
 - Changes that reintroduce root business build aggregation into the template repository.
 
-## Mother Repository vs Template Repository
+## Upstream Template and Adopter Workspaces
 
-The mother repository `sirius-coding/sirius-coding` is the primary iteration workspace. It validates real workflows and owns the source of truth for reusable assets.
+This repository is the public upstream for reusable Control Layer OS assets.
 
-The template repository `sirius-coding/sirius-evolution-station-template` is the public reusable baseline. Template changes should come from mother-repo sync unless a maintainer explicitly asks for an emergency template-only fix.
+Adopter workspaces validate ideas through real projects. When an adopter finds a reusable lesson, contribute the public-safe part back here through a pull request.
 
 ## Local Validation
 

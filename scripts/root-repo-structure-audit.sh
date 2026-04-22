@@ -10,9 +10,9 @@ passes=()
 
 usage() {
   cat <<'EOF'
-Usage: scripts/root-repo-structure-audit.sh [root] [--strict] [--json] [--profile mother|template-release|adopter]
+Usage: scripts/root-repo-structure-audit.sh [root] [--strict] [--json] [--profile template|adopter|official-adopter|profile]
 
-Audits the Sirius mother workspace, template snapshot, or adopted template workspace.
+Audits a Sirius template, adopter workspace, official adopter workspace, or profile repository.
 EOF
 }
 
@@ -45,14 +45,17 @@ ROOT="$(cd "${ROOT}" && pwd -P)"
 
 normalize_profile() {
   case "$1" in
-    root|mother)
-      printf '%s\n' "mother"
+    root|official-adopter)
+      printf '%s\n' "official-adopter"
       ;;
-    template|template-release)
-      printf '%s\n' "template-release"
+    template)
+      printf '%s\n' "template"
       ;;
     adopter)
       printf '%s\n' "adopter"
+      ;;
+    profile)
+      printf '%s\n' "profile"
       ;;
     *)
       echo "Unknown audit profile: $1" >&2
@@ -80,26 +83,30 @@ detect_profile() {
   role="$(read_repository_role)"
 
   case "${role}" in
-    mother|root)
-      printf '%s\n' "mother"
+    official-adopter|root)
+      printf '%s\n' "official-adopter"
       return 0
       ;;
     template)
       if [[ -d "${ROOT}/projects" ]]; then
         printf '%s\n' "adopter"
       else
-        printf '%s\n' "template-release"
+        printf '%s\n' "template"
       fi
+      return 0
+      ;;
+    profile)
+      printf '%s\n' "profile"
       return 0
       ;;
   esac
 
   if [[ -f "${ROOT}/.github/workflows/sync-template.yml" ]]; then
-    printf '%s\n' "mother"
+    printf '%s\n' "official-adopter"
   elif [[ -d "${ROOT}/projects" ]]; then
     printf '%s\n' "adopter"
   else
-    printf '%s\n' "template-release"
+    printf '%s\n' "template"
   fi
 }
 
@@ -208,7 +215,7 @@ check_required_paths() {
     ".github/pull_request_template.md"
     "docs/adoption/quick-start.md"
     "docs/adoption/why-this-template.md"
-    "docs/adoption/mother-repo-relationship.md"
+    "docs/adoption/evolution-source-model.md"
     "examples/minimal-project-layout/README.md"
     "examples/minimal-project-layout/tree.txt"
     "examples/minimal-project-layout/evolution-sample.md"
@@ -216,15 +223,15 @@ check_required_paths() {
     "specs/workspace/control-layer-os.md"
   )
 
-  local mother_paths=(
+  local official_adopter_paths=(
     "projects"
-    "docs/mother/project-inventory.yaml"
+    "docs/workstation/project-inventory.yaml"
   )
-  local mother_strict_paths=(".github/workflows/sync-template.yml")
+  local official_adopter_strict_paths=(".github/workflows/sync-template.yml")
   local template_forbidden_paths=(
     "pom.xml"
     ".github/workflows/sync-template.yml"
-    "docs/mother"
+    "docs/workstation"
     "docs/superpowers"
     "docs/ops/environment-registry.private.yaml"
   )
@@ -233,12 +240,12 @@ check_required_paths() {
     require_path "${path}"
   done
 
-  if [[ "${PROFILE}" == "mother" ]]; then
-    for path in "${mother_paths[@]}"; do
+  if [[ "${PROFILE}" == "official-adopter" ]]; then
+    for path in "${official_adopter_paths[@]}"; do
       require_path "${path}"
     done
   else
-    if [[ "${PROFILE}" == "template-release" ]]; then
+    if [[ "${PROFILE}" == "template" ]]; then
       forbid_path "projects"
     fi
 
@@ -252,8 +259,8 @@ check_required_paths() {
       require_path "${path}"
     done
 
-    if [[ "${PROFILE}" == "mother" ]]; then
-      for path in "${mother_strict_paths[@]}"; do
+    if [[ "${PROFILE}" == "official-adopter" ]]; then
+      for path in "${official_adopter_strict_paths[@]}"; do
         require_path "${path}"
       done
     fi
@@ -308,7 +315,7 @@ check_yaml() {
     files+=(
       ".github/workflows/root-audit.yml"
     )
-    if [[ "${PROFILE}" == "mother" ]]; then
+    if [[ "${PROFILE}" == "official-adopter" ]]; then
       files+=(".github/workflows/sync-template.yml")
     fi
   fi
@@ -468,7 +475,7 @@ PY
 }
 
 collect_project_paths() {
-  if [[ "${PROFILE}" == "mother" && -f "${ROOT}/docs/mother/project-inventory.yaml" ]]; then
+  if [[ "${PROFILE}" == "official-adopter" && -f "${ROOT}/docs/workstation/project-inventory.yaml" ]]; then
     if command -v ruby >/dev/null 2>&1; then
       ruby -ryaml -e '
         data = YAML.load_file(ARGV.fetch(0)) || {}
@@ -476,7 +483,7 @@ collect_project_paths() {
           path = project.fetch("path", nil)
           puts path if path
         end
-      ' "${ROOT}/docs/mother/project-inventory.yaml"
+      ' "${ROOT}/docs/workstation/project-inventory.yaml"
     else
       awk -F: '
         /^[[:space:]]*path[[:space:]]*:/ {
@@ -484,7 +491,7 @@ collect_project_paths() {
           gsub(/^[[:space:]"]+|[[:space:]"]+$/, "", value)
           print value
         }
-      ' "${ROOT}/docs/mother/project-inventory.yaml"
+      ' "${ROOT}/docs/workstation/project-inventory.yaml"
     fi
     return 0
   fi
@@ -497,7 +504,7 @@ collect_project_paths() {
 }
 
 check_project_alignment_sections() {
-  if [[ "${PROFILE}" == "template-release" ]]; then
+  if [[ "${PROFILE}" == "template" ]]; then
     return 0
   fi
 
@@ -520,7 +527,7 @@ check_project_alignment_sections() {
 }
 
 check_project_licenses() {
-  if [[ "${PROFILE}" == "template-release" ]]; then
+  if [[ "${PROFILE}" == "template" ]]; then
     return 0
   fi
 

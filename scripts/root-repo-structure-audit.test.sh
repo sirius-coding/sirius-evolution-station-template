@@ -37,7 +37,7 @@ create_clean_fixture() {
 - [Security](./SECURITY.md)
 - [Quick Start](./docs/adoption/quick-start.md)
 - [Why This Template](./docs/adoption/why-this-template.md)
-- [Mother Repo Relationship](./docs/adoption/mother-repo-relationship.md)
+- [Evolution Source Model](./docs/adoption/evolution-source-model.md)
 - [Minimal Project Layout](./examples/minimal-project-layout/README.md)
 - [Opening Model](./docs/ops/workspace-opening-model.md)
 EOF
@@ -47,13 +47,13 @@ Apache License fixture
 EOF
 
   cat > "${root}/VERSION" <<'EOF'
-4.0.0
+5.0.0
 EOF
 
   cat > "${root}/CHANGELOG.md" <<'EOF'
 # Changelog
 
-## [4.0.0] - 2026-04-21
+## [5.0.0] - 2026-04-22
 
 - Fixture release.
 EOF
@@ -178,12 +178,12 @@ EOF
   cat > "${root}/docs/releases/release-history.md" <<'EOF'
 # Release History
 
-Current version: 4.0.0
+Current version: 5.0.0
 EOF
 
   cat > "${root}/docs/template/template-manifest.yaml" <<'EOF'
 version: 1
-current_version: "4.0.0"
+current_version: "5.0.0"
 include:
   root_files:
     - "README.md"
@@ -196,11 +196,12 @@ include:
 exclude:
   paths:
     - "projects"
+    - "docs/workstation"
 EOF
 
   cat > "${root}/docs/template/repository-role.yaml" <<'EOF'
-role: "mother"
-description: "Fixture mother repository."
+role: "official-adopter"
+description: "Fixture official adopter repository."
 EOF
 
   cat > "${root}/docs/adoption/quick-start.md" <<'EOF'
@@ -211,8 +212,8 @@ EOF
 # Why This Template
 EOF
 
-  cat > "${root}/docs/adoption/mother-repo-relationship.md" <<'EOF'
-# Mother Repo Relationship
+  cat > "${root}/docs/adoption/evolution-source-model.md" <<'EOF'
+# Evolution Source Model
 EOF
 
   cat > "${root}/examples/minimal-project-layout/README.md" <<'EOF'
@@ -279,17 +280,17 @@ EOF
 # Module Roadmap
 EOF
 
-  mkdir -p "${root}/docs/mother"
-  cat > "${root}/docs/mother/project-inventory.yaml" <<'EOF'
+  mkdir -p "${root}/docs/workstation"
+  cat > "${root}/docs/workstation/project-inventory.yaml" <<'EOF'
 version: 1
 projects:
-  - path: "projects/mother-backend"
-  - path: "projects/mother-frontend"
-  - path: "projects/mother-starter"
-  - path: "projects/mother-toolkit"
+  - path: "projects/adopter-backend"
+  - path: "projects/adopter-frontend"
+  - path: "projects/adopter-starter"
+  - path: "projects/adopter-toolkit"
 EOF
 
-  for project in mother-backend mother-frontend mother-starter mother-toolkit; do
+  for project in adopter-backend adopter-frontend adopter-starter adopter-toolkit; do
     mkdir -p "${root}/projects/${project}"
     cat > "${root}/projects/${project}/README.md" <<'EOF'
 # Fixture project
@@ -395,7 +396,7 @@ clean_output="$("${SCRIPT}" "${clean_fixture}")"
 assert_contains "${clean_output}" "Audit passed"
 
 strict_output="$("${SCRIPT}" "${clean_fixture}" --strict)"
-assert_contains "${strict_output}" "Audit profile: mother"
+assert_contains "${strict_output}" "Audit profile: official-adopter"
 assert_contains "${strict_output}" "Audit passed"
 
 json_output="$("${SCRIPT}" "${clean_fixture}" --strict --json)"
@@ -405,7 +406,7 @@ import sys
 
 data = json.loads(sys.argv[1])
 assert data["status"] == "passed", data
-assert data["profile"] == "mother", data
+assert data["profile"] == "official-adopter", data
 assert data["strict"] is True, data
 assert data["failures"] == [], data
 PY
@@ -413,12 +414,12 @@ PY
 template_fixture="${TMP_ROOT}/template"
 cp -R "${clean_fixture}" "${template_fixture}"
 rm -rf "${template_fixture}/projects"
-rm -rf "${template_fixture}/docs/mother"
+rm -rf "${template_fixture}/docs/workstation"
 rm -f "${template_fixture}/.github/workflows/sync-template.yml"
-perl -0pi -e 's/role: "mother"/role: "template"/' "${template_fixture}/docs/template/repository-role.yaml"
+perl -0pi -e 's/role: "official-adopter"/role: "template"/' "${template_fixture}/docs/template/repository-role.yaml"
 
-template_output="$("${SCRIPT}" "${template_fixture}" --strict --profile template-release)"
-assert_contains "${template_output}" "Audit profile: template-release"
+template_output="$("${SCRIPT}" "${template_fixture}" --strict --profile template)"
+assert_contains "${template_output}" "Audit profile: template"
 assert_contains "${template_output}" "Audit passed"
 
 adopter_fixture="${TMP_ROOT}/adopter"
@@ -439,20 +440,20 @@ adopter_output="$("${SCRIPT}" "${adopter_fixture}" --strict)"
 assert_contains "${adopter_output}" "Audit profile: adopter"
 assert_contains "${adopter_output}" "Audit passed"
 
-template_release_with_project="${TMP_ROOT}/template-release-with-project"
-cp -R "${adopter_fixture}" "${template_release_with_project}"
+template_with_project="${TMP_ROOT}/template-with-project"
+cp -R "${adopter_fixture}" "${template_with_project}"
 
 set +e
-template_release_output="$("${SCRIPT}" "${template_release_with_project}" --strict --profile template-release 2>&1)"
-template_release_status="$?"
+template_output="$("${SCRIPT}" "${template_with_project}" --strict --profile template 2>&1)"
+template_status="$?"
 set -e
 
-if [[ "${template_release_status}" -eq 0 ]]; then
-  echo "Expected template-release profile to fail when projects/ is present" >&2
+if [[ "${template_status}" -eq 0 ]]; then
+  echo "Expected template profile to fail when projects/ is present" >&2
   exit 1
 fi
 
-assert_contains "${template_release_output}" "forbidden path exists: projects"
+assert_contains "${template_output}" "forbidden path exists: projects"
 
 sensitive_fixture="${TMP_ROOT}/sensitive"
 create_clean_fixture "${sensitive_fixture}"
@@ -492,7 +493,7 @@ assert_contains "${missing_license_output}" "missing required path: LICENSE"
 
 missing_alignment_fixture="${TMP_ROOT}/missing-alignment"
 create_clean_fixture "${missing_alignment_fixture}"
-perl -0pi -e 's/\n## Workspace alignment\n\nThis project inherits the root workspace rules\.\n//' "${missing_alignment_fixture}/projects/mother-backend/README.md"
+perl -0pi -e 's/\n## Workspace alignment\n\nThis project inherits the root workspace rules\.\n//' "${missing_alignment_fixture}/projects/adopter-backend/README.md"
 
 set +e
 missing_alignment_output="$("${SCRIPT}" "${missing_alignment_fixture}" 2>&1)"

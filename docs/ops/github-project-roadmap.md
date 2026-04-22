@@ -10,8 +10,8 @@
 | --- | --- |
 | Title | `Sirius Evolution Station Roadmap` |
 | Owner | Current GitHub user (`@me`) unless the repository is moved under an organization |
-| Repository | `sirius-coding/sirius-coding` |
-| Scope | Root governance, reusable skills, template releases, public/private guardrails, cross-project alignment |
+| Repository | `sirius-coding/sirius-evolution-station-template` |
+| Scope | Public upstream governance, reusable skills, template releases, public/private guardrails, adopter feedback alignment |
 | Out of scope | Day-to-day business implementation inside child projects |
 
 ## Field Model / 字段模型
@@ -28,18 +28,18 @@ Use the default GitHub Project `Status` field for `Backlog`, `In Progress`, `Rev
 
 | Issue | Track | Purpose |
 | --- | --- | --- |
-| `Root template release v3.0.0` | Template | Keep reusable root assets synced to the template repository after major releases. |
+| `Public upstream template release v5.0.0` | Template | Keep reusable Control Layer OS assets releasable from the template repository. |
 | `Backfill version history and release tags` | Versioning | Ensure `VERSION`, `CHANGELOG.md`, release history, and Git tags stay aligned. |
 | `Harden public repository sanitization` | Security | Extend audits when new public/private boundary risks appear. |
 | `Promote diagram pipeline into reusable plugin` | Diagram Capability | Evaluate whether the drawing pipeline should become a standalone reusable plugin. |
-| `Review independent repositories against workstation goals` | Project Alignment | Keep independent project repositories aligned without copying business implementation into the template. |
+| `Review adopter feedback against upstream goals` | Project Alignment | Promote reusable adopter lessons upstream without copying business implementation into the template. |
 
 ## Setup Command / 初始化命令
 
 ```bash
 ./scripts/github/setup-root-project.sh \
   --owner @me \
-  --repo sirius-coding/sirius-coding \
+  --repo sirius-coding/sirius-evolution-station-template \
   --title "Sirius Evolution Station Roadmap"
 ```
 
@@ -47,4 +47,4 @@ The script is idempotent: it reuses an existing project and existing issues when
 
 ## Operating Rule / 运行规则
 
-Root Project items should describe reusable station evolution. If an item becomes business-specific implementation, move it to the corresponding child repository or independent repository issue tracker and keep only a root-level alignment task here.
+Project items should describe reusable upstream template evolution. If an item becomes business-specific implementation, move it to the corresponding adopter workspace or independent repository issue tracker and keep only a reusable upstream alignment task here.

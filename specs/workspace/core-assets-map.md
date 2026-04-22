@@ -8,19 +8,19 @@
 
 | 路径 / Path | 中文说明 | English Description |
 | --- | --- | --- |
-| `README.md` | 公开首页，说明这个仓库是进化式开发工作站，并导航到核心资产。 | Public homepage describing this repository as an evolving development station and linking to core assets. |
+| `README.md` | 公开首页，说明这个仓库是进化式工作站模板的上游入口，并导航到核心资产。 | Public homepage describing this repository as the upstream entry point for evolution-station templates and linking to core assets. |
 | `AGENTS.md` | 根仓库代理规则，定义事实源优先级、工作边界、护栏、默认流程和 Evolution 输出。 | Root agent rules defining fact-source priority, work boundaries, guardrails, default workflow, and Evolution output. |
 | `.codex/config.toml` | Codex 本地配置，占位并启用当前工作站需要的 agent 能力。 | Local Codex configuration for workspace-level agent capabilities. |
 | `.github/` | GitHub Actions、Issue 模板和 PR 模板，支撑社区入口与 CI 审计。 | GitHub Actions, issue templates, and PR template for community entry points and CI audits. |
 | `.gitignore` | 忽略构建产物、IDE 文件、工作树和私有环境登记文件。 | Ignores build outputs, IDE files, worktrees, and private environment registry files. |
-| `VERSION` | 当前根工作站控制层版本号。 | Current root-workstation control-plane version. |
-| `CHANGELOG.md` | 根工作站的 SemVer 版本历史。 | SemVer release history for the root workstation. |
-| `CONTRIBUTING.md` | 外部贡献边界、验证要求和模板/母仓贡献规则。 | External contribution boundary, validation requirements, and template/mother-repo contribution rules. |
+| `VERSION` | 当前模板控制层版本号。 | Current template control-plane version. |
+| `CHANGELOG.md` | 模板控制层的 SemVer 版本历史。 | SemVer release history for the template control layer. |
+| `CONTRIBUTING.md` | 外部贡献边界、验证要求和上游/采用者贡献规则。 | External contribution boundary, validation requirements, and upstream/adopter contribution rules. |
 | `SECURITY.md` | 公开仓库安全策略、私有 overlay 规则和泄露处理建议。 | Public repository security policy, private overlay rules, and exposure response guidance. |
 | `LICENSE` | Apache-2.0 许可证文本，定义当前公开代码和文档的开源授权。 | Apache-2.0 license text for current public code and documentation. |
 | `NOTICE` | 项目版权和 Sirius 品牌边界说明。 | Copyright and Sirius brand-boundary notice. |
 | `COMMERCIALIZATION.md` | 未来部分商用的边界和可选路径说明。 | Boundary and options for future partial commercialization. |
-| `pom.xml` | 当前工作站的根 Maven 聚合入口，连接 Java 子项目构建；不进入模板库。 | Root Maven aggregation entry for this workspace's Java child projects; excluded from the template repository. |
+| `projects/` | 采用者工作站中的业务项目目录；模板仓默认不包含该目录。 | Business project directory in adopter workspaces; the template repository excludes it by default. |
 
 ## 规则与规范 / Rules and Specs
 
@@ -44,13 +44,11 @@
 | `docs/ops/environment-registry.yaml` | 公开环境登记模型，只保留可公开占位与抽象拓扑。 | Public environment registry model containing placeholders and abstract topology only. |
 | `docs/ops/environment-registry.private.example.yaml` | 私有环境登记示例，复制成本地私有文件后填真实值。 | Example private registry; copy locally and fill with real values outside git. |
 | `docs/diagrams/` | 图形能力目录，以结构源生成 intent、layout、SVG 和 image prompt。 | Diagram capability directory generating intent, layout, SVG, and image prompts from structured sources. |
-| `docs/adoption/` | 模板采用文档，覆盖快速开始、模板价值和母仓/模板关系。 | Template adoption docs covering quick start, template rationale, and mother/template relationship. |
+| `docs/adoption/` | 模板采用文档，覆盖快速开始、模板价值和进化来源模型。 | Template adoption docs covering quick start, template rationale, and the evolution source model. |
 | `docs/releases/release-history.md` | 版本治理、模板同步节奏和发布边界说明。 | Version governance, template sync cadence, and release boundary notes. |
 | `docs/template/template-manifest.yaml` | 模板库同步清单，定义可进入模板的根资产和必须排除的业务/私有资产。 | Template sync manifest defining reusable root assets and excluded business/private assets. |
 | `examples/minimal-project-layout/` | 新工作站最小项目布局示例。 | Minimal project layout example for a new workspace. |
-| `docs/mother/` | 母仓专属项目清单、发布清单和业务项目运维资料；不进入模板库。 | Mother-repository project inventory, release checklists, and business-project operations material; excluded from the template repository. |
-| `docs/superpowers/specs/` | 历史设计规格，用于记录已完成或计划中的设计决策。 | Historical design specs recording completed or planned design decisions. |
-| `docs/superpowers/plans/` | 历史实施计划，用于记录可复现的任务拆分和执行路径。 | Historical implementation plans recording reproducible task breakdowns and execution paths. |
+| `docs/workstation/` | 官方或社区采用者可维护的项目清单、发布清单和业务项目运维资料；不进入模板库。 | Optional adopter-owned project inventory, release checklists, and business-project operations material; excluded from the template repository. |
 
 ## 复用能力 / Reusable Capabilities
 
@@ -66,7 +64,7 @@
 | `scripts/template-repo.test.sh` | 模板同步链路测试，验证业务项目不会进入模板库。 | Template sync test verifying business projects do not enter the template repository. |
 | `scripts/github/setup-root-project.sh` | GitHub Projects 初始化脚本，创建或复用根工作站路线看板和初始议题。 | GitHub Projects setup script that creates or reuses the root-workstation roadmap board and seed issues. |
 | `.github/workflows/root-audit.yml` | push / PR 时运行 strict 根审计。 | Runs strict root audit on push and pull request. |
-| `docs/template/repository-role.yaml` | 仓库角色标记，用来区分母仓、模板发布态和模板采用态。 | Repository role marker distinguishing the mother repository, template release snapshot, and adopted template workspace. |
+| `docs/template/repository-role.yaml` | 仓库角色标记，用来区分模板上游、采用者工作站、官方采用者和主页仓。 | Repository role marker distinguishing the upstream template, adopter workspace, official adopter, and profile repository. |
 | `scripts/diagram/` | 图形生成 pipeline 脚本目录，包含 intent、layout、SVG 和 prompt 阶段。 | Diagram pipeline scripts for intent, layout, SVG, and prompt stages. |
 | `scripts/generate-diagrams.mjs` | 图形生成兼容入口，转发到 `scripts/diagram/build-all.mjs`。 | Compatibility diagram generator entrypoint delegating to `scripts/diagram/build-all.mjs`. |
 | `scripts/diagram-pipeline.test.sh` | 图形 pipeline 测试，验证语义建模、版式规划、SVG 和 image prompt。 | Diagram pipeline test verifying intent modeling, layout planning, SVG, and image prompt output. |
@@ -78,7 +76,7 @@
 | 路径 / Path | 中文说明 | English Description |
 | --- | --- | --- |
 | `projects/<project-name>/` | 项目执行目录，负责业务实现、测试、构建、部署资产和项目级文档。 | Project execution directory for implementation, tests, builds, deployment assets, and project-level docs. |
-| `docs/mother/project-inventory.yaml` | 母仓中的具体项目清单；模板采用者应维护自己的项目清单。 | Concrete project inventory in the mother repository; template adopters should maintain their own inventory. |
+| `docs/workstation/project-inventory.yaml` | 采用者工作站中的具体项目清单；模板仓不携带具体项目清单。 | Concrete project inventory in adopter workspaces; the template repository does not carry a concrete project inventory. |
 
 ## 资产归属原则 / Ownership Principles
 

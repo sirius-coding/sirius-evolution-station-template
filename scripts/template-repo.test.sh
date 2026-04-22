@@ -23,7 +23,7 @@ for required in \
   .github/pull_request_template.md \
   docs/adoption/quick-start.md \
   docs/adoption/why-this-template.md \
-  docs/adoption/mother-repo-relationship.md \
+  docs/adoption/evolution-source-model.md \
   examples/minimal-project-layout/README.md \
   AGENTS.md \
   docs/releases/release-history.md \
@@ -42,7 +42,7 @@ done
 for forbidden in \
   projects \
   pom.xml \
-  docs/mother \
+  docs/workstation \
   docs/superpowers \
   .github/workflows/sync-template.yml \
   .github/java-upgrade \
@@ -62,7 +62,7 @@ for forbidden_text in \
   if grep -RInI --exclude-dir=.git "${forbidden_text}" "${snapshot}" >/tmp/sirius-template-forbidden-text.$$ 2>/dev/null; then
     cat /tmp/sirius-template-forbidden-text.$$ >&2
     rm -f /tmp/sirius-template-forbidden-text.$$
-    echo "Template snapshot must not contain mother repository text: ${forbidden_text}" >&2
+    echo "Template snapshot must not contain adopter-specific project text: ${forbidden_text}" >&2
     exit 1
   fi
   rm -f /tmp/sirius-template-forbidden-text.$$

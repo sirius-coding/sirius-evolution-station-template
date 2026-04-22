@@ -34,7 +34,7 @@ const template = `# Sirius Evolution Station Template
   <a href="#3-minute-quick-start">3-Minute Quick Start</a> ·
   <a href="#minimal-example-flow">Minimal Example Flow</a> ·
   <a href="#core-links">Core Links</a> ·
-  <a href="#mother-repository-relationship">Mother Repository Relationship</a> ·
+  <a href="#evolution-source-model">Evolution Source Model</a> ·
   <a href="#security-boundary">Security Boundary</a>
 </p>
 
@@ -52,7 +52,7 @@ Use this template if you want:
 - a reusable root layer for multiple projects
 - public-safe documentation and environment boundaries
 - auditable AI-assisted development workflows
-- a template that can evolve from a validated mother repository
+- a public upstream that evolves from reusable lessons proven in adopter workspaces
 
 Do not use this template if you only need a single application scaffold, want to commit private environment values, or plan to put business implementation directly into the reusable template.
 
@@ -87,7 +87,7 @@ See [Minimal Project Layout](./examples/minimal-project-layout/README.md).
 | [Contributing](./CONTRIBUTING.md) | Contribution boundary and validation requirements |
 | [Security](./SECURITY.md) | Public/private safety policy |
 | [Why This Template](./docs/adoption/why-this-template.md) | When this template is useful |
-| [Mother Repository Relationship](./docs/adoption/mother-repo-relationship.md) | How the mother repo validates and syncs template assets |
+| [Evolution Source Model](./docs/adoption/evolution-source-model.md) | How adopter workspaces contribute reusable lessons upstream |
 | [Template Manifest](./docs/template/template-manifest.yaml) | Include/exclude source of truth for template sync |
 | [Root Audit](./scripts/root-repo-structure-audit.sh) | Structure, link, version, diagram, and sanitization checks |
 | [Template Adoption Skill](./skills/template-adoption/SKILL.md) | Reusable adoption workflow for future AI sessions |
@@ -98,11 +98,11 @@ See [Minimal Project Layout](./examples/minimal-project-layout/README.md).
   <img src="docs/diagrams/evolution-workflow.svg" alt="Sirius Coding Evolution Workflow" />
 </p>
 
-## Mother Repository Relationship
+## Evolution Source Model
 
-The mother repository \`sirius-coding/sirius-coding\` is the live validation workspace. This template repository is the reusable public baseline.
+This repository is the public upstream for reusable Control Layer OS assets. Any workspace created from it can become a source of reusable improvements when lessons are promoted into root-level docs, specs, skills, scripts, or examples.
 
-Template sync must preserve the boundary:
+The official Sirius adopter workspace is \`sirius-coding/sirius-workstation\`, but it is not the only evolution source. Template sync must preserve the boundary:
 
 - include root control layer assets
 - exclude \`projects/\`

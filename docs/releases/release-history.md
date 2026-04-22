@@ -1,6 +1,6 @@
 # Release History
 
-This workspace treats major versions as reusable station capability milestones. The current main repository remains the primary iteration space, while the template repository receives only reusable root-workstation assets through audited sync pull requests.
+This workspace treats major versions as reusable station capability milestones. Since v5, this template repository is the public upstream for reusable Control Layer OS assets.
 
 ## Version Policy
 
@@ -18,12 +18,13 @@ This workspace treats major versions as reusable station capability milestones. 
 | `v1.0.0` | Root evolution station formed: durable handbook, rules, root/project boundary, audit entrypoint. |
 | `v2.0.0` | Public and template readiness: license, brand boundary, independent repo alignment, module roadmap. |
 | `v3.0.0` | Template-ready evolution station: high-quality diagram pipeline, SemVer history, template sync, and GitHub Project roadmap. |
-| `v4.0.0` | Control Layer OS product baseline: adoption docs, community files, strict audits, and PR-based mother-to-template sync. |
-| `v4.0.1` | Template decoupling patch: explicit repository roles, adopted-template audit mode, and mother-only project inventory exclusion. |
+| `v4.0.0` | Control Layer OS product baseline: adoption docs, community files, strict audits, and PR-based adopter-to-template sync. |
+| `v4.0.1` | Template decoupling patch: explicit repository roles, adopted-template audit mode, and adopter-owned project inventory exclusion. |
+| `v5.0.0` | Governance reset: the template repository becomes the public upstream and adopter workspaces become sources of reusable lessons. |
 
 ## Template Release Rule
 
-The main repository is the live workstation. The template repository is a reusable baseline. Major reusable upgrades should be synced to the template repository through a generated PR.
+This template repository is the public upstream. Major reusable upgrades should arrive as pull requests from adopter workspaces or direct template maintenance.
 
 Template sync excludes:
 

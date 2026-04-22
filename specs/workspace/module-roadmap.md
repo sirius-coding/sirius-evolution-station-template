@@ -17,7 +17,7 @@ Track what "continue improving all modules" means for the root evolution station
 | Licensing | `LICENSE`, `NOTICE`, `COMMERCIALIZATION.md` | Add per-project license notices when publishing independent repos |
 | Audit automation | `scripts/root-repo-structure-audit.sh` | Run from GitHub Actions after the workflow layer is introduced |
 | Adoption | `docs/adoption/`, `examples/minimal-project-layout/`, `CONTRIBUTING.md`, `SECURITY.md` | Convert recurring adoption questions into docs, examples, or a skill |
-| Template sync | `docs/template/template-manifest.yaml`, `scripts/template/sync-template-repo.sh` | Prefer PR-based mother-to-template sync with CI gating |
+| Template sync | `docs/template/template-manifest.yaml`, `scripts/template/sync-template-repo.sh` | Prefer PR-based adopter-to-upstream sync with CI gating |
 
 ## Project Modules
 
@@ -25,7 +25,7 @@ Track what "continue improving all modules" means for the root evolution station
 | --- | --- | --- |
 | `projects/<project-name>` | Exposure mode, public-safe docs, environment model, reusable release lessons | Implementation, tests, build, deployment details, project-specific specs |
 
-Mother-repository project details live in `docs/mother/project-inventory.yaml` and do not flow into the template repository.
+Adopter-workspace project details live in adopter-owned docs and do not flow into the template repository.
 
 ## Next Iteration Candidates
 

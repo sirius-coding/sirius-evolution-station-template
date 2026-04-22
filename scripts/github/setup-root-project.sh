@@ -2,15 +2,15 @@
 set -euo pipefail
 
 OWNER="@me"
-REPO="sirius-coding/sirius-coding"
+REPO="sirius-coding/sirius-evolution-station-template"
 TITLE="Sirius Evolution Station Roadmap"
 
 usage() {
   cat <<'EOF'
 Usage: scripts/github/setup-root-project.sh [--owner <login|@me>] [--repo <owner/name>] [--title <project-title>]
 
-Creates or reuses the GitHub Project that tracks root-workstation evolution, adds reusable planning fields,
-and seeds the initial root governance issues.
+Creates or reuses the GitHub Project that tracks reusable template evolution, adds planning fields,
+and seeds the initial upstream governance issues.
 EOF
 }
 
@@ -150,16 +150,16 @@ main() {
   ensure_text_field "${project_number}" "Release"
   ensure_single_select_field "${project_number}" "Risk" "Low,Medium,High"
 
-  ensure_issue "${project_number}" "Root template release v3.0.0" \
-    "Track template synchronization from the main workspace to the reusable template repository after major releases."
+  ensure_issue "${project_number}" "Public upstream template release v5.0.0" \
+    "Track reusable Control Layer OS assets that should be released through the template repository."
   ensure_issue "${project_number}" "Backfill version history and release tags" \
     "Keep VERSION, CHANGELOG.md, docs/releases/release-history.md, and Git tags aligned."
   ensure_issue "${project_number}" "Harden public repository sanitization" \
     "Extend root and template audits when new public/private boundary risks appear."
   ensure_issue "${project_number}" "Promote diagram pipeline into reusable plugin" \
     "Evaluate whether the drawing pipeline should become a standalone reusable plugin or stay as a root skill and scripts."
-  ensure_issue "${project_number}" "Review independent repositories against workstation goals" \
-    "Keep independent project repositories aligned with root goals without copying business implementation into the template."
+  ensure_issue "${project_number}" "Review adopter feedback against upstream goals" \
+    "Promote reusable adopter lessons upstream without copying business implementation into the template."
 
   echo "GitHub Project ready: ${TITLE} (#${project_number})"
 }

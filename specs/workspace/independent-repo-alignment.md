@@ -25,7 +25,7 @@ Template adopters should maintain their own project inventory outside reusable t
 | --- | --- | --- | --- |
 | `projects/<project-name>` | Monorepo-only, independent repo, or deployed service | README, license, verification, and public/private boundary status | Keep implementation project-owned; promote reusable lessons to root docs or skills |
 
-The mother repository may keep a concrete project inventory in `docs/mother/project-inventory.yaml`, which is excluded from template sync.
+Official and community adopter workspaces may keep concrete project inventories in adopter-owned docs such as `docs/workstation/project-inventory.yaml`, which are excluded from template sync.
 
 ## Remote Inspection
 
@@ -39,7 +39,7 @@ For each independently published project, inspect the remote repository before r
 
 When a project is published to an independent GitHub repository, use the exposure model in `docs/ops/workspace-opening-model.md`. Do not create nested `.git` directories under `projects/`.
 
-Independent project repository updates do not automatically drive template releases. Only reusable root control layer improvements should flow from the mother repository into the template repository.
+Independent project repository updates do not automatically drive template releases. Only reusable root control layer improvements should flow from adopter workspaces into the upstream template repository.
 
 ## Review Questions
 

@@ -50,7 +50,7 @@ required_paths=(
   ".codex/config.toml"
   "docs/adoption/quick-start.md"
   "docs/adoption/why-this-template.md"
-  "docs/adoption/mother-repo-relationship.md"
+  "docs/adoption/evolution-source-model.md"
   "docs/releases/release-history.md"
   "docs/template/template-manifest.yaml"
   "docs/template/repository-role.yaml"
@@ -83,7 +83,7 @@ forbidden_paths=(
   "pom.xml"
   ".github/workflows/sync-template.yml"
   ".github/java-upgrade"
-  "docs/mother"
+  "docs/workstation"
   "docs/superpowers"
   "docs/ops/environment-registry.private.yaml"
 )
